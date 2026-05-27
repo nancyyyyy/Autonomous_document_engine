@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     REDIS_URL: str = "redis://localhost:6379/0"
     
     # OpenAI
-    OPENAI_API_KEY: str = ""
+    GROQ_API_KEY: str = ""
     
     # GitHub
     GITHUB_WEBHOOK_SECRET: str = "change-this-to-a-strong-secret"

@@ -2,6 +2,7 @@ from sqlmodel import Session, select
 from app.core.database import get_session
 from app.domain.models.change_event import ChangeEvent
 from datetime import datetime
+from app.services.documentation_generator import DocumentationGenerator
 
 class ChangeDetector:
     
@@ -34,3 +35,17 @@ class ChangeDetector:
             session.commit()
             
             print(f"✅ Change analysis completed for Event {change_event_id}")
+
+            # === AI Documentation Generation ===
+            print(f"🤖 Triggering AI Documentation Generation...")
+            generator = DocumentationGenerator()
+            
+            changelog = generator.generate_changelog({
+                "repository": repo.full_name if 'repo' in locals() else "Unknown",
+                "event_type": event.event_type,
+                "changes": event.changes
+            })
+            
+            print("\n📝 AI Generated Changelog:")
+            print(changelog)
+            print("-" * 60)
