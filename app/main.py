@@ -4,6 +4,9 @@ from contextlib import asynccontextmanager
 
 from app.core.config import settings
 from app.core.database import create_db_and_tables
+from app.api.v1.endpoints.webhooks import router as webhooks_router
+
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -18,6 +21,8 @@ app = FastAPI(
     version="0.1.0",
     lifespan=lifespan,
 )
+
+app.include_router(webhooks_router)
 
 app.add_middleware(
     CORSMiddleware,
